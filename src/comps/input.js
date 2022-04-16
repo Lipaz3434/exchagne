@@ -1,49 +1,70 @@
 // import { async } from 'q';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 export default function Input() {
+
 
   const [coinsAr, setcoinsAr] = useState([]);
   const [selectFrom, setSelectFrom] = useState({});
   const [selectto, setSelectTo] = useState({});
 
+  const sFromRef = useRef()
+  const stoRef = useRef()
+
   useEffect(() => {
     doApi();
+    console.log(selectFrom)
+    console.log(selectto)
   }, [])
 
   const doApi = async () => {
-    let url = `http://apilayer.net/api/live?access_key=3c81786f9b3d2e267f40d08af97b97f2`
+    let url = `money.json`
     let resp = await fetch(url);
     let data = await resp.json();
     let tempAr = [];
+    console.log(data.quotes);
     for (let key in data.quotes) {
-      tempAr.push({ lable: key, value: data.quotes[key] });
+      tempAr.push({ lable: key.slice(3), value: data.quotes[key] });
     }
+    console.log(tempAr)
     setcoinsAr(tempAr);
-
   }
 
+
+
   return (
-    <div className='mx-auto col-md-6 text-center'>
-      <h3>enter amount</h3>
-      <input />
-      <h3>selct coin type</h3>
-      <select>
-        {coinsAr.map(item => {
-          return (
-            <option key={item.lable}>{item.lable}</option>
-          )
-        })}
-      </select>
-      <h3>selct coin type to convert</h3>
-      <select>
-      {coinsAr.map(item => {
-          return (
-            <option key={item.lable}>{item.lable}</option>
-          )
-        })}
-      </select>
+    <div className='text-center py-5'>
+      <div className='pe-5'>
+        <h3>enter amount</h3>
+        <input />
+      </div>
+      <div className='d-flex pt-5'>
+        <div className='pe-5'>
+          <h4>selct coin type</h4>
+          <select  ref={sFromRef}  onChange={()=>{setSelectFrom(sFromRef)}} defaultValue={selectFrom} className='fs-3'>
+            {coinsAr.map(item => {
+              return (
+                <option value={item.value} key={item.lable}>{item.lable}</option>
+              )
+            })}
+          </select>
+        </div>
+        <div className='ps-5'>
+          <h4>selct coin type to convert</h4>
+          <select ref={stoRef} onChange={()=>{setSelectTo(stoRef)}} className='fs-3'>
+            {coinsAr.map(item => {
+              return (
+                <option  value={item.value} key={item.lable}>{item.lable}</option>
+              )
+            })}
+          </select>
+        </div>
+      </div>
+      <div className='me-5 mt-5'>
+     <button onClick={()=>{setSelectTo(selectto); setSelectFrom(selectFrom);}} className='btn btn-outline-secondary px-4 me-4'>change</button>
+     </div>
     </div>
   )
 
 }
+
