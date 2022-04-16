@@ -5,8 +5,8 @@ export default function Output() {
     const {val1,val2,input} = useContext(AppContext);
 
     return (
-        <div className='mt-4 text-center'>
-            <h1>{input.toLocaleString()} {val1.label} = {(input/val1.value * val2.value).toLocaleString()} {val2.label}</h1>
+        <div className='mt-5 text-center'>
+            <h2 className='display-3'>{input.toLocaleString()} {val1.label} = {(input/val1.value * val2.value).toLocaleString()} {val2.label}</h2>
         </div>
     )
 } 

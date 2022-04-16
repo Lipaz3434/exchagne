@@ -10,9 +10,9 @@ export default function Time() {
     }, [])
 
     return (
-        <div className='text-end'>
-            <h3>Date - {time[1]} {new Date().toDateString()}</h3>
-            <h3>Time - {time[0]}</h3>
+        <div className='mt-5'>
+            <h4>Date - {time[1]} {new Date().toDateString()}</h4>
+            <h4>Time - {time[0]}</h4>
         </div>
     )
 }
