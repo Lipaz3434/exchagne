@@ -49,7 +49,7 @@ export default function AppRoutes() {
                 input,setInput
             }}>
                 <Routes>
-                    <Route index element={<AppExchage />} />
+                    <Route index element={<AppExchage/>} />
                     <Route path='*' element={<PageNotFound404 />} />
                 </Routes>
             </AppContext.Provider>
